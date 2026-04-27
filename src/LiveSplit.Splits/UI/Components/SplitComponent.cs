@@ -173,7 +173,12 @@ public class SplitComponent : IComponent
             int currentSplitIndex = state.CurrentSplitIndex;
             bool isRunSplitBehindCurrentSplitIndex = indexOfRunSplit < currentSplitIndex;
 
-            Image icon = isRunSplitBehindCurrentSplitIndex ? LiveSplitStateHelper.ConvertImageToGrayscale(Split.Icon) : Split.Icon;
+            int indexOfHilightSplit = state.Run.IndexOf(SplitsSettings.HilightSplit);
+            bool isSplitBehindHilightSplit = indexOfRunSplit < indexOfHilightSplit;
+
+            bool isSplitBehind = isRunSplitBehindCurrentSplitIndex || isSplitBehindHilightSplit;
+
+            Image icon = isSplitBehind ? LiveSplitStateHelper.ConvertImageToGrayscale(Split.Icon) : Split.Icon;
             if (DisplayIcon && icon != null)
             {
                 Image shadow = ShadowImage;

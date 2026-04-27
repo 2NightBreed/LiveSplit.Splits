@@ -161,7 +161,11 @@ public class SplitComponent : IComponent
                 g.FillRectangle(currentSplitBrush, 0, 0, width, height);
             }
 
-            Image icon = Split.Icon;
+            int indexOfRunSplit = state.Run.IndexOf(Split);
+            int currentSplitIndex = state.CurrentSplitIndex;
+            bool isRunSplitBehindCurrentSplitIndex = indexOfRunSplit < currentSplitIndex;
+
+            Image icon = isRunSplitBehindCurrentSplitIndex ? LiveSplitStateHelper.ConvertImageToGrayscale(Split.Icon) : Split.Icon;
             if (DisplayIcon && icon != null)
             {
                 Image shadow = ShadowImage;

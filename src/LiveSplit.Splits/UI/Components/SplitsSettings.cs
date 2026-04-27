@@ -79,6 +79,7 @@ public partial class SplitsSettings : UserControl
     public Color CurrentTimesColor { get; set; }
     public Color AfterTimesColor { get; set; }
     public bool OverrideTimesColor { get; set; }
+    static public ISegment HilightSplit { get; set; }
 
     public TimeAccuracy SplitTimesAccuracy { get; set; }
     public GradientType CurrentSplitGradient { get; set; }

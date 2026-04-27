@@ -193,13 +193,13 @@ public class SplitsComponent : IComponent
 
         settingsSplitCount = Settings.VisualSplitCount;
 
+        int baseIndex = Math.Min(Math.Max(state.CurrentSplitIndex, 0), state.Run.Count - 1);
+        int targetIndex = Math.Min(Math.Max(baseIndex + ScrollOffset, 0), state.Run.Count - 1);
         int skipCount = Math.Min(
             Math.Max(
                 0,
-                state.CurrentSplitIndex - (visualSplitCount - 2 - Settings.SplitPreviewCount + (Settings.AlwaysShowLastSplit ? 0 : 1))),
+                targetIndex - (visualSplitCount - 2 - Settings.SplitPreviewCount + (Settings.AlwaysShowLastSplit ? 0 : 1))),
             state.Run.Count - visualSplitCount);
-        ScrollOffset = Math.Min(Math.Max(ScrollOffset, -skipCount), state.Run.Count - skipCount - visualSplitCount);
-        skipCount += ScrollOffset;
 
         if (OldShadowsColor != state.LayoutSettings.ShadowsColor)
         {
@@ -396,13 +396,25 @@ public class SplitsComponent : IComponent
 
     public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
     {
+        int baseIndex = Math.Min(Math.Max(state.CurrentSplitIndex, 0), state.Run.Count - 1);
+        int targetIndex = Math.Min(Math.Max(baseIndex + ScrollOffset, 0), state.Run.Count - 1);
+        ScrollOffset = targetIndex - baseIndex;
+
         int skipCount = Math.Min(
             Math.Max(
                 0,
-                state.CurrentSplitIndex - (visualSplitCount - 2 - Settings.SplitPreviewCount + (Settings.AlwaysShowLastSplit ? 0 : 1))),
+                targetIndex - (visualSplitCount - 2 - Settings.SplitPreviewCount + (Settings.AlwaysShowLastSplit ? 0 : 1))),
             state.Run.Count - visualSplitCount);
-        ScrollOffset = Math.Min(Math.Max(ScrollOffset, -skipCount), state.Run.Count - skipCount - visualSplitCount);
-        skipCount += ScrollOffset;
+
+        int highlightedIndex = targetIndex;
+        if (ScrollOffset != 0 && highlightedIndex >= 0 && highlightedIndex < state.Run.Count)
+        {
+            SplitsSettings.HilightSplit = state.Run[highlightedIndex];
+        }
+        else
+        {
+            SplitsSettings.HilightSplit = null;
+        }
 
         int i = 0;
         if (SplitComponents.Count >= visualSplitCount)

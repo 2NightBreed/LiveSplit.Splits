@@ -35,6 +35,7 @@ public class SplitComponent : IComponent
 
     public bool DisplayIcon { get; set; }
     public bool IsSplitBehindCurrentSplit { get; set; }
+    public bool IsHighlight { get; set; }
 
     public Image ShadowImage { get; set; }
     protected Image OldImage { get; set; }
@@ -165,6 +166,13 @@ public class SplitComponent : IComponent
                     ? Settings.CurrentSplitTopColor
                     : Settings.CurrentSplitBottomColor);
                 g.FillRectangle(currentSplitBrush, 0, 0, width, height);
+            }
+
+            if (IsHighlight)
+            {
+                var color = Color.FromArgb(106, 255, 255, 255);
+                using var highlightPen = new Pen(color);
+                g.DrawRectangle(highlightPen, 0, 0, width - 1, height - 1);
             }
 
             bool isSplitBehind = IsSplitBehindCurrentSplit;
@@ -333,6 +341,7 @@ public class SplitComponent : IComponent
 
             int splitIndex = state.Run.IndexOf(Split);
             IsSplitBehindCurrentSplit = splitIndex < state.CurrentSplitIndex;
+            IsHighlight = SplitsSettings.HilightSplit == Split;
             NameLabel.ForeColor =
                 !Settings.OverrideTextColor ? state.LayoutSettings.TextColor
                 : splitIndex < state.CurrentSplitIndex ? Settings.BeforeNamesColor
@@ -530,6 +539,7 @@ public class SplitComponent : IComponent
             Cache["SplitName"] = NameLabel.Text;
             Cache["IsActive"] = IsActive;
             Cache["IsSplitBehindCurrentSplit"] = IsSplitBehindCurrentSplit;
+            Cache["IsHighlight"] = IsHighlight;
             Cache["NameColor"] = NameLabel.ForeColor.ToArgb();
             Cache["ColumnsCount"] = ColumnsList.Count();
             for (int index = 0; index < LabelsList.Count; index++)

@@ -70,7 +70,10 @@ public class SplitComponent : IComponent
         ColumnsList = columnsList;
         ColumnWidths = columnWidths;
         TimeFormatter = new SplitTimeFormatter(Settings.SplitTimesAccuracy);
-        DeltaTimeFormatter = new DeltaSplitTimeFormatter(Settings.DeltasAccuracy, Settings.DropDecimals);
+        DeltaTimeFormatter = new DeltaSplitTimeFormatter(Settings.DeltasAccuracy, Settings.DropDecimals)
+        {
+            UseCustomDeltaTimeFormatter = true
+        };
         MinimumHeight = 25;
         VerticalHeight = 31;
 
@@ -113,7 +116,10 @@ public class SplitComponent : IComponent
 
         if (Settings.DeltasAccuracy != CurrentDeltaAccuracy || Settings.DropDecimals != CurrentDropDecimals)
         {
-            DeltaTimeFormatter = new DeltaSplitTimeFormatter(Settings.DeltasAccuracy, Settings.DropDecimals);
+            DeltaTimeFormatter = new DeltaSplitTimeFormatter(Settings.DeltasAccuracy, Settings.DropDecimals)
+            {
+                UseCustomDeltaTimeFormatter = true
+            };
             CurrentDeltaAccuracy = Settings.DeltasAccuracy;
             CurrentDropDecimals = Settings.DropDecimals;
         }

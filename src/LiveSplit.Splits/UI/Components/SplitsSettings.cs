@@ -54,6 +54,8 @@ public partial class SplitsSettings : UserControl
 
     public bool DisplayIcons { get; set; }
     public bool IconShadows { get; set; }
+    public bool IsBehindCurrentSplit { get; set; }
+    public bool IsBehindHighlightSplit { get; set; }
     public bool ShowThinSeparators { get; set; }
     public bool AlwaysShowLastSplit { get; set; }
     public bool ShowBlankSplits { get; set; }
@@ -110,6 +112,8 @@ public partial class SplitsSettings : UserControl
         SplitPreviewCount = 1;
         DisplayIcons = true;
         IconShadows = true;
+        IsBehindCurrentSplit = false;
+        IsBehindHighlightSplit = false;
         ShowThinSeparators = true;
         AlwaysShowLastSplit = true;
         ShowBlankSplits = true;
@@ -156,6 +160,8 @@ public partial class SplitsSettings : UserControl
         btnAfterTimesColor.DataBindings.Add("BackColor", this, "AfterTimesColor", false, DataSourceUpdateMode.OnPropertyChanged);
         chkDisplayIcons.DataBindings.Add("Checked", this, "DisplayIcons", false, DataSourceUpdateMode.OnPropertyChanged);
         chkIconShadows.DataBindings.Add("Checked", this, "IconShadows", false, DataSourceUpdateMode.OnPropertyChanged);
+        chkIsBehindCurrentSplit.DataBindings.Add("Checked", this, "IsBehindCurrentSplit", false, DataSourceUpdateMode.OnPropertyChanged);
+        chkIsBehindHighlightSplit.DataBindings.Add("Checked", this, "IsBehindHighlightSplit", false, DataSourceUpdateMode.OnPropertyChanged);
         chkThinSeparators.DataBindings.Add("Checked", this, "ShowThinSeparators", false, DataSourceUpdateMode.OnPropertyChanged);
         chkLastSplit.DataBindings.Add("Checked", this, "AlwaysShowLastSplit", false, DataSourceUpdateMode.OnPropertyChanged);
         chkOverrideTextColor.DataBindings.Add("Checked", this, "OverrideTextColor", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -187,7 +193,7 @@ public partial class SplitsSettings : UserControl
 
     private void chkDisplayIcons_CheckedChanged(object sender, EventArgs e)
     {
-        trkIconSize.Enabled = label5.Enabled = chkIconShadows.Enabled = chkDisplayIcons.Checked;
+        trkIconSize.Enabled = label5.Enabled = chkIconShadows.Enabled = lblGrayscaleIcons.Enabled = chkIsBehindCurrentSplit.Enabled = chkIsBehindHighlightSplit.Enabled = chkDisplayIcons.Checked;
     }
 
     private void chkOverrideTimesColor_CheckedChanged(object sender, EventArgs e)
@@ -390,6 +396,8 @@ public partial class SplitsSettings : UserControl
         LockLastSplit = SettingsHelper.ParseBool(element["LockLastSplit"], false);
         IconSize = SettingsHelper.ParseFloat(element["IconSize"], 24f);
         IconShadows = SettingsHelper.ParseBool(element["IconShadows"], true);
+        IsBehindCurrentSplit = SettingsHelper.ParseBool(element["IsBehindCurrentSplit"], false);
+        IsBehindHighlightSplit = SettingsHelper.ParseBool(element["IsBehindHighlightSplit"], false);
 
         if (version >= new Version(1, 5))
         {
@@ -477,6 +485,8 @@ public partial class SplitsSettings : UserControl
         SettingsHelper.CreateSetting(document, parent, "LockLastSplit", LockLastSplit) ^
         SettingsHelper.CreateSetting(document, parent, "IconSize", IconSize) ^
         SettingsHelper.CreateSetting(document, parent, "IconShadows", IconShadows) ^
+        SettingsHelper.CreateSetting(document, parent, "IsBehindCurrentSplit", IsBehindCurrentSplit) ^
+        SettingsHelper.CreateSetting(document, parent, "IsBehindHighlightSplit", IsBehindHighlightSplit) ^
         SettingsHelper.CreateSetting(document, parent, "SplitHeight", SplitHeight) ^
         SettingsHelper.CreateSetting(document, parent, "CurrentSplitGradient", CurrentSplitGradient) ^
         SettingsHelper.CreateSetting(document, parent, "BackgroundColor", BackgroundColor) ^

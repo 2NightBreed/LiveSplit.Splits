@@ -104,6 +104,9 @@
             this.btnAfterNamesColor = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.chkAutomaticAbbreviations = new System.Windows.Forms.CheckBox();
+            this.lblGrayscaleIcons = new System.Windows.Forms.Label();
+            this.chkIsBehindCurrentSplit = new System.Windows.Forms.CheckBox();
+            this.chkIsBehindHighlightSplit = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dmnTotalSegments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dmnUpcomingSegments)).BeginInit();
@@ -176,11 +179,11 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 110F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 187F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 215F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(445, 966);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(445, 995);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // cmbSplitGradient
@@ -330,7 +333,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 431);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(439, 75);
+            this.groupBox3.Size = new System.Drawing.Size(439, 104);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Icons";
@@ -342,16 +345,20 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.Controls.Add(this.chkDisplayIcons, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label5, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.trkIconSize, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.label5, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.trkIconSize, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.chkIconShadows, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.lblGrayscaleIcons, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.chkIsBehindCurrentSplit, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.chkIsBehindHighlightSplit, 2, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowCount = 3;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(433, 56);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(433, 85);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // chkDisplayIcons
@@ -371,7 +378,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 37);
+            this.label5.Location = new System.Drawing.Point(3, 66);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(138, 13);
             this.label5.TabIndex = 23;
@@ -381,7 +388,7 @@
             // 
             this.tableLayoutPanel4.SetColumnSpan(this.trkIconSize, 2);
             this.trkIconSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trkIconSize.Location = new System.Drawing.Point(147, 32);
+            this.trkIconSize.Location = new System.Drawing.Point(147, 61);
             this.trkIconSize.Maximum = 80;
             this.trkIconSize.Minimum = 10;
             this.trkIconSize.Name = "trkIconSize";
@@ -407,7 +414,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox4, 4);
             this.groupBox4.Controls.Add(this.tableLayoutPanel5);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(3, 699);
+            this.groupBox4.Location = new System.Drawing.Point(3, 728);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(439, 209);
             this.groupBox4.TabIndex = 20;
@@ -669,7 +676,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox6, 4);
             this.groupBox6.Controls.Add(this.tableLayoutPanel7);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(3, 512);
+            this.groupBox6.Location = new System.Drawing.Point(3, 541);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(439, 181);
             this.groupBox6.TabIndex = 19;
@@ -948,7 +955,7 @@
             this.groupColumns.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.groupColumns, 4);
             this.groupColumns.Controls.Add(this.tableColumns);
-            this.groupColumns.Location = new System.Drawing.Point(3, 914);
+            this.groupColumns.Location = new System.Drawing.Point(3, 943);
             this.groupColumns.Name = "groupColumns";
             this.groupColumns.Size = new System.Drawing.Size(439, 48);
             this.groupColumns.TabIndex = 21;
@@ -1172,6 +1179,39 @@
             this.chkAutomaticAbbreviations.Text = "Automatically Abbreviate Names If Necessary";
             this.chkAutomaticAbbreviations.UseVisualStyleBackColor = true;
             // 
+            // lblGrayscaleIcons
+            // 
+            this.lblGrayscaleIcons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblGrayscaleIcons.AutoSize = true;
+            this.lblGrayscaleIcons.Location = new System.Drawing.Point(3, 37);
+            this.lblGrayscaleIcons.Name = "lblGrayscaleIcons";
+            this.lblGrayscaleIcons.Size = new System.Drawing.Size(138, 13);
+            this.lblGrayscaleIcons.TabIndex = 24;
+            this.lblGrayscaleIcons.Text = "Grayscale Icons Before:";
+            // 
+            // chkIsBehindCurrentSplit
+            // 
+            this.chkIsBehindCurrentSplit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkIsBehindCurrentSplit.Location = new System.Drawing.Point(151, 32);
+            this.chkIsBehindCurrentSplit.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
+            this.chkIsBehindCurrentSplit.Name = "chkIsBehindCurrentSplit";
+            this.chkIsBehindCurrentSplit.Size = new System.Drawing.Size(134, 23);
+            this.chkIsBehindCurrentSplit.TabIndex = 25;
+            this.chkIsBehindCurrentSplit.Text = "Current Split";
+            this.chkIsBehindCurrentSplit.UseVisualStyleBackColor = true;
+            // 
+            // chkIsBehindHighlightSplit
+            // 
+            this.chkIsBehindHighlightSplit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkIsBehindHighlightSplit.AutoSize = true;
+            this.chkIsBehindHighlightSplit.Location = new System.Drawing.Point(295, 35);
+            this.chkIsBehindHighlightSplit.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
+            this.chkIsBehindHighlightSplit.Name = "chkIsBehindHighlightSplit";
+            this.chkIsBehindHighlightSplit.Size = new System.Drawing.Size(135, 17);
+            this.chkIsBehindHighlightSplit.TabIndex = 26;
+            this.chkIsBehindHighlightSplit.Text = "Highlight Split";
+            this.chkIsBehindHighlightSplit.UseVisualStyleBackColor = true;
+            // 
             // SplitsSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1179,7 +1219,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "SplitsSettings";
             this.Padding = new System.Windows.Forms.Padding(7);
-            this.Size = new System.Drawing.Size(459, 980);
+            this.Size = new System.Drawing.Size(459, 1009);
             this.Load += new System.EventHandler(this.SplitsSettings_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -1297,5 +1337,8 @@
         private System.Windows.Forms.CheckBox chkAutomaticAbbreviations;
         private System.Windows.Forms.RadioButton rdoDeltaMilliseconds;
         private System.Windows.Forms.RadioButton rdoMilliseconds;
+        private System.Windows.Forms.Label lblGrayscaleIcons;
+        private System.Windows.Forms.CheckBox chkIsBehindCurrentSplit;
+        private System.Windows.Forms.CheckBox chkIsBehindHighlightSplit;
     }
 }

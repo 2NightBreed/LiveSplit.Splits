@@ -34,7 +34,9 @@ public class SplitComponent : IComponent
     protected int IconWidth => DisplayIcon ? (int)(Settings.IconSize + 7.5f) : 0;
 
     public bool DisplayIcon { get; set; }
+    public bool IsSplitBehindCurrentSplit { get; set; }
     public bool IsHighlight { get; set; }
+    public bool IsSplitBehindHighlightSplit { get; set; }
 
     public Image ShadowImage { get; set; }
     protected Image OldImage { get; set; }
@@ -174,7 +176,11 @@ public class SplitComponent : IComponent
                 g.DrawRectangle(highlightPen, 0, 0, width - 1, height - 1);
             }
 
-            Image icon = Split.Icon;
+            bool isSplitBehindCurrentSplit = IsSplitBehindCurrentSplit && Settings.IsBehindCurrentSplit;
+            bool isSplitBehindHighlightSplit = IsSplitBehindHighlightSplit && Settings.IsBehindHighlightSplit;
+            bool isSplitBehind = isSplitBehindCurrentSplit || isSplitBehindHighlightSplit;
+
+            Image icon = isSplitBehind ? LiveSplitStateHelper.ConvertImageToGrayscale(Split.Icon) : Split.Icon;
             if (DisplayIcon && icon != null)
             {
                 Image shadow = ShadowImage;
@@ -337,7 +343,9 @@ public class SplitComponent : IComponent
             NameLabel.Text = Split.Name;
 
             int splitIndex = state.Run.IndexOf(Split);
+            IsSplitBehindCurrentSplit = splitIndex < state.CurrentSplitIndex;
             IsHighlight = SplitsSettings.HilightSplit == Split;
+            IsSplitBehindHighlightSplit = SplitsSettings.HilightSplit == null ? IsSplitBehindCurrentSplit : splitIndex < state.Run.IndexOf(SplitsSettings.HilightSplit);
             NameLabel.ForeColor =
                 !Settings.OverrideTextColor ? state.LayoutSettings.TextColor
                 : splitIndex < state.CurrentSplitIndex ? Settings.BeforeNamesColor
@@ -534,7 +542,9 @@ public class SplitComponent : IComponent
             Cache["DisplayIcon"] = DisplayIcon;
             Cache["SplitName"] = NameLabel.Text;
             Cache["IsActive"] = IsActive;
+            Cache["IsSplitBehindCurrentSplit"] = IsSplitBehindCurrentSplit;
             Cache["IsHighlight"] = IsHighlight;
+            Cache["IsSplitBehindHighlightSplit"] = IsSplitBehindHighlightSplit;
             Cache["NameColor"] = NameLabel.ForeColor.ToArgb();
             Cache["ColumnsCount"] = ColumnsList.Count();
             for (int index = 0; index < LabelsList.Count; index++)

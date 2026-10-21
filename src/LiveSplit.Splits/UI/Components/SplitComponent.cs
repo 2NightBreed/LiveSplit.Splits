@@ -346,7 +346,7 @@ public class SplitComponent : IComponent
             IsSplitBehindHighlightSplit = splitIndex < state.Run.IndexOf(SplitsSettings.HilightSplit);
             NameLabel.ForeColor =
                 !Settings.OverrideTextColor ? state.LayoutSettings.TextColor
-                : splitIndex < state.CurrentSplitIndex ? Settings.BeforeNamesColor
+                : splitIndex < state.CurrentSplitIndex || (IsSplitBehindHighlightSplit && splitIndex != state.CurrentSplitIndex) ? Settings.BeforeNamesColor
                 : Split == state.CurrentSplit ? Settings.CurrentNamesColor
                 : Settings.AfterNamesColor;
 
@@ -444,6 +444,8 @@ public class SplitComponent : IComponent
             {
                 label.ForeColor = Split == state.CurrentSplit
                     ? Settings.OverrideTimesColor ? Settings.CurrentTimesColor : state.LayoutSettings.TextColor
+                    : IsSplitBehindHighlightSplit
+                    ? Settings.OverrideTimesColor ? Settings.BeforeTimesColor : state.LayoutSettings.TextColor
                     : Settings.OverrideTimesColor ? Settings.AfterTimesColor : state.LayoutSettings.TextColor;
 
                 if (type is ColumnType.SplitTime or ColumnType.DeltaorSplitTime)

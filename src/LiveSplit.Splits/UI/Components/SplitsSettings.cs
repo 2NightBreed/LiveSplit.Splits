@@ -196,6 +196,22 @@ public partial class SplitsSettings : UserControl
         trkIconSize.Enabled = label5.Enabled = chkIconShadows.Enabled = lblGrayscaleIcons.Enabled = chkIsBehindCurrentSplit.Enabled = chkIsBehindHighlightSplit.Enabled = chkDisplayIcons.Checked;
     }
 
+    private void chkDisplayRows_CheckedChanged(object sender, EventArgs e)
+    {
+        Display2Rows = chkDisplayRows.Checked;
+
+        if (Mode == LayoutMode.Vertical && chkDisplayRows.Checked)
+        {
+            int iconSizeMaximum = 80;
+            trkIconSize.Value = Math.Min(trkIconSize.Value, iconSizeMaximum);
+            trkIconSize.Maximum = iconSizeMaximum;
+
+            trkSize.Maximum = 425;
+            trkSize.Value = Math.Min(trkSize.Value, trkSize.Maximum);
+            ScaledSplitHeight = Math.Min(Math.Max(trkSize.Minimum, ScaledSplitHeight), trkSize.Maximum);
+        }
+    }
+
     private void chkOverrideTimesColor_CheckedChanged(object sender, EventArgs e)
     {
         label6.Enabled = label9.Enabled = label7.Enabled = btnBeforeTimesColor.Enabled
@@ -354,6 +370,7 @@ public partial class SplitsSettings : UserControl
             chkDisplayRows.Enabled = true;
             chkDisplayRows.DataBindings.Clear();
             chkDisplayRows.DataBindings.Add("Checked", this, "Display2Rows", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkDisplayRows_CheckedChanged(chkDisplayRows, EventArgs.Empty);
             chkColumnLabels.DataBindings.Clear();
             chkColumnLabels.Enabled = true;
             chkColumnLabels.DataBindings.Add("Checked", this, "ShowColumnLabels", false, DataSourceUpdateMode.OnPropertyChanged);

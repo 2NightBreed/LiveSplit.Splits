@@ -32,6 +32,8 @@ public class SplitComponent : IComponent
     protected ITimeFormatter DeltaTimeFormatter { get; set; }
 
     protected int IconWidth => DisplayIcon ? (int)(Settings.IconSize + 7.5f) : 0;
+    private float GetIconSize(float height) => Math.Min(Settings.IconSize, height);
+    private int GetIconWidth(float height) => DisplayIcon ? (int)(GetIconSize(height) + 7.5f) : 0;
 
     public bool DisplayIcon { get; set; }
     public bool IsSplitBehindCurrentSplit { get; set; }
@@ -192,10 +194,11 @@ public class SplitComponent : IComponent
                     OldImage = icon;
                 }
 
-                float drawWidth = Settings.IconSize;
-                float drawHeight = Settings.IconSize;
-                float shadowWidth = Settings.IconSize * (5 / 4f);
-                float shadowHeight = Settings.IconSize * (5 / 4f);
+                float iconSize = GetIconSize(height);
+                float drawWidth = iconSize;
+                float drawHeight = iconSize;
+                float shadowWidth = iconSize * (5 / 4f);
+                float shadowHeight = iconSize * (5 / 4f);
                 if (icon.Width > icon.Height)
                 {
                     float ratio = icon.Height / (float)icon.Width;
@@ -214,8 +217,8 @@ public class SplitComponent : IComponent
                 {
                     g.DrawImage(
                         shadow,
-                        7 + (((Settings.IconSize * (5 / 4f)) - shadowWidth) / 2) - 0.7f,
-                        ((height - Settings.IconSize) / 2.0f) + (((Settings.IconSize * (5 / 4f)) - shadowHeight) / 2) - 0.7f,
+                        7 + ((iconSize * (5 / 4f) - shadowWidth) / 2) - 0.7f,
+                        ((height - iconSize) / 2.0f) + ((iconSize * (5 / 4f) - shadowHeight) / 2) - 0.7f,
                         shadowWidth,
                         shadowHeight);
                 }
@@ -224,14 +227,16 @@ public class SplitComponent : IComponent
 
                 g.DrawImage(
                     icon,
-                    7 + ((Settings.IconSize - drawWidth) / 2),
-                    ((height - Settings.IconSize) / 2.0f) + ((Settings.IconSize - drawHeight) / 2),
+                    7 + ((iconSize - drawWidth) / 2),
+                    ((height - iconSize) / 2.0f) + ((iconSize - drawHeight) / 2),
                     drawWidth,
                     drawHeight);
             }
 
+            int iconWidth = GetIconWidth(height);
+
             NameLabel.Font = state.LayoutSettings.TextFont;
-            NameLabel.X = 5 + IconWidth;
+            NameLabel.X = 5 + iconWidth;
             NameLabel.HasShadow = state.LayoutSettings.DropShadows;
 
             if (ColumnsList.Count() == LabelsList.Count)
@@ -267,7 +272,7 @@ public class SplitComponent : IComponent
                     }
                 }
 
-                NameLabel.Width = (mode == LayoutMode.Horizontal ? width - 10 : nameX) - IconWidth;
+                NameLabel.Width = (mode == LayoutMode.Horizontal ? width - 10 : nameX) - iconWidth;
                 NameLabel.Draw(g);
             }
         }
